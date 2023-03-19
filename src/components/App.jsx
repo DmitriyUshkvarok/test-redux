@@ -1,16 +1,23 @@
-export const App = () => {
+import { useState } from 'react';
+import TodoList from './TodoList';
+import InputField from './InputField';
+import { useDispatch } from 'react-redux';
+import { addTodo } from 'redux/todoSlice';
+
+function App() {
+  const [text, setText] = useState([]);
+  const dispatch = useDispatch();
+
+  const addTask = () => {
+    dispatch(addTodo({ text }));
+    setText('');
+  };
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <>
+      <InputField handleInput={setText} text={text} handleSubmit={addTask} />
+      <TodoList />
+    </>
   );
-};
+}
+export default App;
